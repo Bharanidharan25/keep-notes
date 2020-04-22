@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>
+            Notes
+        </title>
+        <link rel= 'stylesheet' type="text/css" href="./index.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <header>
+            <P>Notes</P>
+            <a id='creatButton' onclick=openModal()><i class="fa fa-plus" style="color: black;cursor: pointer;"></i></a>
+        </header>
+        <div class="container">
+            <div class ='modal'>
+                <div class="content">
+                    <div class="title">
+                        <p id='modalTitle' style="font-weight: bold;">Create Notes</p>
+                        <p><a onclick=closeModal() style="cursor: pointer;"><i class='fa fa-close' style="color: black;"></i></a></p>
+                    </div>
+                    <div class="body">
+                        <input class='titleText' id = 'titleText' type="text" placeholder="Enter the tilte of your note">
+                        <textarea rows="5" cols="35" class='bodyText' id='bodyText' type = 'text' placeholder="Enter the content"></textarea>
+                        <input type='submit' class = 'submit' id='submit' onclick=createDiv()>
+                    </div>
+                </div>
+            </div>
+
+                <div id='editModal' class ='modal'>
+                    <div class="content">
+                        <div class="title">
+                            <p id='modalTitle' style="font-weight: bold;">Edit notes</p>
+                            <p><a onclick=editCloseModal() style="cursor: pointer;"><i class='fa fa-close' style="color: black;"></i></a></p>
+                        </div>
+                        <div class="body">
+                            <input class='titleText' id = 'titleText' type="text" placeholder="Enter the tilte of your note">
+                            <textarea rows="5" cols="35" class='bodyText' id='bodyText' type = 'text' placeholder="Enter the content"></textarea>
+                            <input type='submit' class = 'submit' id='submit' onclick=editDiv()>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id ='readmoreModal' class="modal">
+                    <div class="contentBody">
+                        <div id ='readmore' class="title">
+                            <p id = 'readmoreTitle' style="font-weight: bold;">Create Notes</p>
+                            <p><a onclick=readMoreCloseModal() style="cursor: pointer;"><i class='fa fa-close' style="color: black;"></i></a></p>
+                        </div>
+                        <div class="readMoreBody">
+                            <p></p>
+                        
+                            <div class="readMore">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <script src="./index.js"></script>
+    </body>
+</html>
