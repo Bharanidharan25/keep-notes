@@ -1,5 +1,6 @@
 let container = document.getElementsByClassName('container')[0]
 let currentlyEditedModal = undefined
+let notes = []
 
 function closeModal(){
     var modal =document.getElementsByClassName('modal')[0]
@@ -11,15 +12,14 @@ function openModal() {
     modal.classList.add('show') 
 }
 
-function createDiv(e){
-    let title = document.getElementById('titleText')
-    let body = document.getElementById('bodyText')
+function createNote(id, title, body){
     var div = document.createElement('div')
     div.className = 'notesDiv'
+    div.id=String(id)
     let notesTitle = document.createElement('div')
     notesTitle.className = 'notesTitle'
     let p = document.createElement('p')
-    p.textContent = title.value
+    p.textContent = title
     
 
     //edit buttons
@@ -46,12 +46,10 @@ function createDiv(e){
     //note body and notes div
     let notesbody = document.createElement('div')
     notesbody.className = 'notesBody'
-    
-
     let paraDiv = document.createElement('div')
     paraDiv.className = 'paraDiv'
     let p1 = document.createElement('p')
-    var textnode = document.createTextNode(body.value); 
+    var textnode = document.createTextNode(body); 
     p1.appendChild(textnode)
 
 
@@ -66,16 +64,42 @@ function createDiv(e){
     div.appendChild(notesTitle)
     div.appendChild(notesbody)
     container.appendChild(div)
+    return ({title,body})
+} 
 
+function createDiv(e){
+    id = Math.floor(Math.random()*1000000)
+    let title = document.getElementById('titleText')
+    let body = document.getElementById('bodyText')
+    const note = createNote(id,title.value,body.value)
     title.value = ''
     body.value = ''
-
+    notes.push({...note, id})
+    localStorage.setItem('keepNotes',JSON.stringify(notes))
     closeModal()
+}
+
+function removeNote(id){
+    notes = notes.filter(note => note.id != id)
+    localStorage.setItem('keepNotes', JSON.stringify(notes))
+}
+
+function updateNote(id, title, body){
+    console.log(id,title,body)
+    notes.map(note => {
+        if(note.id == id){
+            note.title=title
+            note.body=body
+        }
+        return note
+    })
+    localStorage.setItem('keepNotes', JSON.stringify(notes))
 }
 
 function deleteItem(e){
     e.preventDefault()
     let item = e.currentTarget.parentElement.parentElement.parentElement
+    removeNote(item.id)
     container.removeChild(item)
 }
 
@@ -119,5 +143,17 @@ function editDiv(){
     const editedBody = modal.getElementsByClassName('bodyText')[0].value
     currentlyEditedModal.firstChild.textContent = editedTitle
     currentlyEditedModal.parentElement.getElementsByClassName('paraDiv')[0].textContent = editedBody
+    updateNote(currentlyEditedModal.parentElement.id, editedTitle, editedBody)
     editCloseModal()
+}
+
+window.onload = ()=>{
+    if(!localStorage.getItem('keepNotes')){
+        localStorage.setItem('keepNotes',JSON.stringify([]))
+    }else{
+        notes = JSON.parse(localStorage.getItem('keepNotes'))
+    }
+    for (let note of notes){
+        createNote(note.id, note.title, note.body)
+    }
 }
