@@ -98,6 +98,14 @@ header{
     border-bottom: 1px solid lightgray;
     margin-top: 20px;
 }
+
+.titleWrapper {
+    overflow: hidden;
+    width: 55%;
+    height: 25px;
+    font-size: 18px;
+}
+
 .bodyText{
     padding: 5px;
     border: 0;

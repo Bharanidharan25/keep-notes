@@ -18,8 +18,11 @@ function createNote(id, title, body){
     div.id=String(id)
     let notesTitle = document.createElement('div')
     notesTitle.className = 'notesTitle'
+    let titleWrapper = document.createElement('div')
+    titleWrapper.className = 'titleWrapper'
     let p = document.createElement('p')
     p.textContent = title
+    titleWrapper.appendChild(p)
     
 
     //edit buttons
@@ -40,7 +43,7 @@ function createNote(id, title, body){
     a1.className = 'icons'
     editbtns.appendChild(a)
     editbtns.appendChild(a1)
-    notesTitle.appendChild(p)
+    notesTitle.appendChild(titleWrapper)
     notesTitle.appendChild(editbtns)
 
     //note body and notes div
